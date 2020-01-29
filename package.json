@@ -1,0 +1,16 @@
+{
+  "name": "tf-lambda-function",
+  "version": "1.0.0",
+  "description": "Deploy k8s app",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Jose Dalino",
+  "license": "ISC",
+  "dependencies": {
+    "@kubernetes/client-node": "^0.6.0",
+    "aws-sdk": "^2.329.0",
+    "js-yaml": "^3.12.0"
+  }
+}
