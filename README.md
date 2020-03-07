@@ -25,6 +25,8 @@ $ sed -i -e "s#\$TOKEN#$(kubectl get secret $SECRET_NAME -o json | jq -r '.data[
 $ kubectl create clusterrolebinding default-admin --clusterrole cluster-admin --serviceaccount=default:default
 ```
 
+- Add AWS access keys to ~/deploy-first
+
 ## References:
 - https://medium.com/@BranLiang/step-by-step-to-setup-continues-deployment-kubernetes-on-aws-with-eks-code-pipeline-and-lambda-61136c84bbcd
 - https://docs.aws.amazon.com/code-samples/latest/catalog/lambda_functions-codepipeline-MyCodePipelineFunction.js.html
