@@ -13,21 +13,20 @@ exports.handler = async (event, context) => {
   var keyName = event['CodePipeline.job'].data.actionConfiguration.configuration.UserParameters
 
   /* Helper methods */
-  var putJobSuccess = (message) => {
+  var putJobSuccess = function(message) {
     var params = {
       jobId: jobId
     };
-    return codepipeline.putJobSuccessResult(params, (err, data) => {
+    codepipeline.putJobSuccessResult(params, function(err, data) {
       if(err) {
         context.fail(err);
       } else {
-        console.log(message);
         context.succeed(message);
       }
-    }).promise();
+    });
   };
 
-  var putJobFailure = (message) => {
+  var putJobFailure = function(message) {
     var params = {
       jobId: jobId,
       failureDetails: {
@@ -36,10 +35,9 @@ exports.handler = async (event, context) => {
         externalExecutionId: context.invokeid
       }
     };
-    return codepipeline.putJobFailureResult(params, (err, data) => {
-      console.log(message);
+    codepipeline.putJobFailureResult(params, function(err, data) {
       context.fail(message);
-    }).promise();
+    });
   };
 
   var ecr = new AWS.ECR()
@@ -97,7 +95,6 @@ exports.handler = async (event, context) => {
 
       /* Already deployed, update the deployment */
       if (existDeployment !== undefined) {
-        console.log('Start update of existing deployment and service.');
         return patchClient.patchNamespacedDeployment(keyName, 'default', {
           spec: {
             template: {
@@ -113,7 +110,7 @@ exports.handler = async (event, context) => {
           }
         })
         .then(() => {
-          console.log('Update existing deployment and service successful.');
+          console.log('Patch success');
           return putJobSuccess("Deploy success.");
         })
         .catch((err) => {
@@ -122,7 +119,6 @@ exports.handler = async (event, context) => {
         })
       } else {
         /* Create a new deployment */
-        console.log('Start creation of initial deployment and service.');
         var raw = fs.readFileSync('./deploy-first', 'utf8')
 
         raw = raw.replace(/\$EKS_DEPLOYMENT_NAME/g, keyName)
@@ -132,7 +128,7 @@ exports.handler = async (event, context) => {
 
         return client.createNamespacedDeployment('default', deployConfig)
           .then(() => {
-            console.log('End creation of initial deployment and service. Successful.');
+            console.log('success');
             return putJobSuccess("Deploy success.");
           })
           .catch((err) => {

@@ -1,7 +1,9 @@
 # AWS Lambda Function for EKS Deployment
 
-## Usage:
+## Prerequisites
+- TBD
 
+## Replace variables config file
 - Setup Lambda for deployment:
 ```
 $ sed -i -e "s#\$EKS_CA#$(aws eks describe-cluster --name tf-eks --query cluster.certificateAuthority.data --output text)#g" ./config
@@ -26,6 +28,11 @@ $ kubectl create clusterrolebinding default-admin --clusterrole cluster-admin --
 ```
 
 - Add AWS access keys to ~/deploy-first
+
+## Usage
+- TBD
+
+## TODO: Update service.yaml file and manually deploy
 
 ## References:
 - https://medium.com/@BranLiang/step-by-step-to-setup-continues-deployment-kubernetes-on-aws-with-eks-code-pipeline-and-lambda-61136c84bbcd

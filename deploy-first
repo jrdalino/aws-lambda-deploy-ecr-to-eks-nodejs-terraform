@@ -30,8 +30,8 @@ spec:
         - name: BLUEPRINTS_ENV
           value: "dev"
         - name: dynamodb.signing.region
-          value: "ap-southeast-1"
+          value: "ap-southeast-2"
         - name: dynamodb.aws.access.key.id
           value: "<ACCESS_KEY>"          
         - name: dynamodb.aws.secret.key
-          value: "<SECRRET_KEY>"
+          value: "<SECRET_KEY>"
