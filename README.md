@@ -6,9 +6,9 @@
 ## Replace variables config file
 - Setup Lambda for deployment:
 ```
-$ sed -i -e "s#\$EKS_CA#$(aws eks describe-cluster --name tf-eks --query cluster.certificateAuthority.data --output text)#g" ./config
-$ sed -i -e "s#\$EKS_CLUSTER_HOST#$(aws eks describe-cluster --name tf-eks --query cluster.endpoint --output text)#g" ./config
-$ sed -i -e "s#\$EKS_CLUSTER_NAME#tf-eks#g" ./config
+$ sed -i -e "s#\$EKS_CA#$(aws eks describe-cluster --name myproject-eks --query cluster.certificateAuthority.data --output text)#g" ./config
+$ sed -i -e "s#\$EKS_CLUSTER_HOST#$(aws eks describe-cluster --name myproject-eks --query cluster.endpoint --output text)#g" ./config
+$ sed -i -e "s#\$EKS_CLUSTER_NAME#myproject-eks#g" ./config
 $ sed -i -e "s#\$EKS_CLUSTER_USER_NAME#lambda#g" ./config
 ```
 
