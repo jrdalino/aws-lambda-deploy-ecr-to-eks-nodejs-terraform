@@ -1,0 +1,37 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: $EKS_DEPLOYMENT_NAME
+  labels:
+    app: $EKS_DEPLOYMENT_NAME
+  namespace: default
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: $EKS_DEPLOYMENT_NAME
+  template:
+    metadata:
+      labels:
+        app: $EKS_DEPLOYMENT_NAME
+    spec:
+      containers:
+      - name: $EKS_DEPLOYMENT_NAME
+        image: $DEPLY_IMAGE
+        imagePullPolicy: Always             
+        ports:
+        - containerPort: 5000 # 8501
+          protocol: TCP
+        # env:
+        # - name: service.port.number
+        #   value: "8501"
+        # - name: BLUEPRINTS_CONFIG_HOME
+        #   value: "/home/config"
+        # - name: BLUEPRINTS_ENV
+        #   value: "dev"
+        # - name: dynamodb.signing.region
+        #   value: "ap-southeast-2"
+        # - name: dynamodb.aws.access.key.id
+        #   value: "<REPLACE_ME>"          
+        # - name: dynamodb.aws.secret.key
+        #   value: "<REPLACE_ME>"
