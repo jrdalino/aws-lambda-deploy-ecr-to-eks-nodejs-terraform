@@ -6,7 +6,7 @@
 - Service Role for Lambda
 - Lambda Function for Deployment
 
-### CI/CD Pipline Usage
+## CI/CD Pipline Usage
 1. AWS CodePipeline invokes an AWS Lambda function that includes the Kubernetes Python client as part of the function’s resources. The Lambda function performs a string replacement on the tag used for the Docker image in the Kubernetes deployment file to match the Docker image tag applied in the build, one that matches the image in Amazon ECR.
 2. After the deployment manifest update is completed, AWS Lambda invokes the Kubernetes API to update the image in the Kubernetes application deployment.
 3. Kubernetes performs a rolling update of the pods in the application deployment to match the docker image specified in Amazon ECR. The pipeline is now live and responds to changes to the master branch of the CodeCommit repository.
@@ -56,7 +56,7 @@ $ terraform plan
 $ terraform apply
 ```
 
-### (Optional) Cleanup
+## (Optional) Cleanup
 ```
 $ terraform destroy
 ```
