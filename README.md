@@ -21,14 +21,12 @@ using https://github.com/jrdalino/aws-tfstate-backend-terraform
 - npm
 
 ## Usage
-- Install node_modules libraries
+- Install ~/src/node_modules libraries
 ```
 $ cd ~/environment/aws-lambda-deploy-ecr-to-eks-nodejs-terraform/src
 $ npm install
 ```
-- Replace variables in terraform.tfvars
-- Replace variables in state_config.tf
-- Replace sed script variables and setup the Lambda function for deployment by replacing the values in the config file
+- Replace variables in ~/src/config file
 ```
 $ cd ~/environment/aws-lambda-deploy-ecr-to-eks-nodejs-terraform/src
 $ sed -i -e "s#\$EKS_CA#$(aws eks describe-cluster --name myproject-eks --query cluster.certificateAuthority.data --output text)#g" ./config
@@ -44,12 +42,15 @@ $ kubectl get secrets
 ```
 $ sed -i -e "s#\$TOKEN#$(kubectl get secret $SECRET_NAME -o json | jq -r '.data["token"]' | base64 -D)#g" ./config
 ```
+- Replace variables in terraform.tfvars
+- Replace variables in state_config.tf
 - Provide admin access for default service account
 ```
 $ kubectl create clusterrolebinding default-admin --clusterrole cluster-admin --serviceaccount=default:default
 ```
 - Initialize, Review Plan and Apply. Note:. Running "terraform plan" compresses the /src folder into src.zip and will be uploaded to AWS Lambda when running "terraform apply"
 ```
+$ cd ~/environment/aws-lambda-deploy-ecr-to-eks-nodejs-terraform
 $ terraform init
 $ terraform plan
 $ terraform apply
