@@ -4,11 +4,6 @@ variable "aws_region" {
   description = "Used AWS Region."    
 }
 
-variable "aws_profile" {
-  type        = "string"
-  description = "Used AWS Profile."    
-}
-
 variable "aws_account" {
   type        = "string"
   description = "Used AWS Account."    

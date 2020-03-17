@@ -33,16 +33,17 @@ $ sed -i -e "s#\$EKS_CA#$(aws eks describe-cluster --name myproject-eks --query 
 $ sed -i -e "s#\$EKS_CLUSTER_HOST#$(aws eks describe-cluster --name myproject-eks --query cluster.endpoint --output text)#g" ./config
 $ sed -i -e "s#\$EKS_CLUSTER_NAME#myproject-eks#g" ./config
 $ sed -i -e "s#\$EKS_CLUSTER_USER_NAME#lambda#g" ./config
-```
-- Run the following command to check the secrets:
-```
 $ kubectl get secrets
-```
-- Run the following command replacing secret name to update your token
-```
 $ sed -i -e "s#\$TOKEN#$(kubectl get secret $SECRET_NAME -o json | jq -r '.data["token"]' | base64 -D)#g" ./config
 ```
 - Replace variables in terraform.tfvars
+```
+$ cd ~/environment/aws-lambda-deploy-ecr-to-eks-nodejs-terraform
+$ sed -i -e "s#\$EKS_CA#$(aws eks describe-cluster --name myproject-eks --query cluster.certificateAuthority.data --output text)#g" ./terraform.tfvars
+$ sed -i -e "s#\$EKS_CLUSTER_HOST#$(aws eks describe-cluster --name myproject-eks --query cluster.endpoint --output text)#g" ./terraform.tfvars
+$ kubectl get secrets
+$ sed -i -e "s#\$TOKEN#$(kubectl get secret $SECRET_NAME -o json | jq -r '.data["token"]' | base64 -D)#g" ./terraform.tfvars
+```
 - Replace variables in state_config.tf
 - Provide admin access for default service account
 ```
@@ -55,6 +56,7 @@ $ terraform init
 $ terraform plan
 $ terraform apply
 ```
+- Note: Using *.backup remove secrets from terraform.tfvars and config before pushing to git
 
 ## (Optional) Cleanup
 ```
