@@ -18,20 +18,10 @@ spec:
       containers:
       - name: $EKS_DEPLOYMENT_NAME
         image: $DEPLY_IMAGE
-        imagePullPolicy: Always             
+        imagePullPolicy: Always
         ports:
-        - containerPort: 5000 # 8501
+        - containerPort: 5000
           protocol: TCP
-        # env:
-        # - name: service.port.number
-        #   value: "8501"
-        # - name: BLUEPRINTS_CONFIG_HOME
-        #   value: "/home/config"
-        # - name: BLUEPRINTS_ENV
-        #   value: "dev"
-        # - name: dynamodb.signing.region
-        #   value: "ap-southeast-2"
-        # - name: dynamodb.aws.access.key.id
-        #   value: "<REPLACE_ME>"          
-        # - name: dynamodb.aws.secret.key
-        #   value: "<REPLACE_ME>"
+        env:
+        - name: AWS_XRAY_DAEMON_ADDRESS
+          value: "xray-service.kube-system.svc.cluster.local:2000"
