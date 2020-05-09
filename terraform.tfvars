@@ -1,6 +1,6 @@
 # General
-aws_region  = "ap-southeast-2"
-aws_account = "222337787619"
+aws_region  = "ap-southeast-1"
+aws_account = "707538076348"
 
 # Lambda
 lambda_service_role_name        = "deploy-ecr-to-eks-nodejs-lambda-service-role"
